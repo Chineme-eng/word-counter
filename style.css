@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f1115;
+  color: #f5f7fb;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.hero p {
+  margin: 0;
+  color: #b9c1d0;
+  font-size: 16px;
+}
+
+.tool {
+  display: grid;
+  gap: 24px;
+}
+
+.editor-card,
+.stat-card {
+  background: #171a21;
+  border: 1px solid #232734;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.editor-card {
+  padding: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #d8deea;
+}
+
+textarea {
+  width: 100%;
+  min-height: 240px;
+  resize: vertical;
+  border: 1px solid #2b3140;
+  border-radius: 14px;
+  background: #0d1016;
+  color: #f5f7fb;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #6ea8fe;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  background: #2b3140;
+  color: white;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-label {
+  color: #aab4c8;
+  font-size: 14px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stat-value.small {
+  font-size: 20px;
+  word-break: break-word;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 800px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
