@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countly Text Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f6f1;
+      --panel: #ffffff;
+      --panel-2: #f1ede3;
+      --text: #171717;
+      --muted: #6a655c;
+      --line: #ddd5c6;
+      --accent: #111111;
+      --accent-soft: #ece7db;
+      --success: #1f7a4f;
+      --danger: #b03a2e;
+      --shadow: 0 20px 60px rgba(0,0,0,0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fbfaf7 0%, #f3eee4 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      background: rgba(248, 246, 241, 0.82);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .brand span:last-child {
+      font-size: 1.05rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-dark {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-light {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 48px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-card, .panel {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.84rem;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem, 4vw, 4.6rem);
+      line-height: 0.96;
+      margin-bottom: 18px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 58ch;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mini-stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--panel-2);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .mini-stat span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .price-box {
+      padding: 18px;
+      background: linear-gradient(180deg, #171717 0%, #262626 100%);
+      color: white;
+      border-radius: 22px;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 8px 0 12px;
+    }
+
+    .price strong {
+      font-size: 2.3rem;
+      letter-spacing: -0.05em;
+    }
+
+    .price span { color: rgba(255,255,255,0.72); }
+
+    .check-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .check-list li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    .section {
+      padding: 22px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.65;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.96rem;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .workspace-main,
+    .workspace-side {
+      padding: 22px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 16px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: #8e8575;
+      box-shadow: 0 0 0 4px rgba(142,133,117,0.12);
+    }
+
+    .tool-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--panel-2);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 1.4rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 5px;
+    }
+
+    .stat-box span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: white;
+      outline: none;
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .output {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: #fcfbf8;
+      border-radius: 16px;
+      min-height: 76px;
+      line-height: 1.6;
+    }
+
+    .flashcards-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .deck-list {
+      display: grid;
+      gap: 10px;
+      max-height: 340px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .deck-item {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .deck-item.active {
+      border-color: #1a1a1a;
+      background: #f6f3eb;
+    }
+
+    .flashcard {
+      min-height: 250px;
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: linear-gradient(180deg, #fff 0%, #f5f1e8 100%);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .flashcard small {
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .flashcard .big {
+      font-size: clamp(1.2rem, 2vw, 1.9rem);
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 26ch;
+    }
+
+    .game-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .pill.correct {
+      background: rgba(31,122,79,0.1);
+      border-color: rgba(31,122,79,0.32);
+      color: var(--success);
+    }
+
+    .pill.wrong {
+      background: rgba(176,58,46,0.08);
+      border-color: rgba(176,58,46,0.22);
+      color: var(--danger);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .footer {
+      padding: 34px 0 60px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-box {
+      padding: 18px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.78);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .muted-link { color: var(--muted); }
+    .muted-link:hover { color: var(--text); }
+
+    @media (max-width: 1020px) {
+      .hero-grid,
+      .workspace,
+      .flashcards-wrap,
+      .game-box,
+      .two-col,
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero-grid,
+      .workspace,
+      .flashcards-wrap,
+      .game-box,
+      .two-col,
+      .cards,
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy,
+      .hero-side,
+      .workspace-main,
+      .workspace-side,
+      .card {
+        padding: 20px;
+      }
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <div class="brand-mark">CT</div>
+        <span>Countly Text <span style="opacity:.58; font-weight:700;">Pro</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workspace">Workspace</a>
+        <a href="#flashcards">Flashcards</a>
+        <a href="#games">Games</a>
+        <a href="#pricing">Pricing</a>
+        <a class="btn btn-dark" href="#workspace">Try Pro Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card hero-copy">
+          <div class="eyebrow">Premium writing tools · still free to build</div>
+          <h1>Write better. Study smarter. Practice from your own text.</h1>
+          <p class="lead">
+            Countly Text Pro turns your writing into flashcards, spelling practice, vocabulary drills, and saved study sets — all in one clean workspace you can host free on GitHub.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-dark" href="#workspace">Open Demo</a>
+            <a class="btn btn-light" href="#pricing">See Pro Plan</a>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>100%</strong><span>Front-end only MVP</span></div>
+            <div class="mini-stat"><strong>$0</strong><span>Can run on GitHub Pages</span></div>
+            <div class="mini-stat"><strong>Local Save</strong><span>No backend needed yet</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-card hero-side" id="pricing">
+          <div class="price-box">
+            <div style="font-weight:800; letter-spacing:-0.03em;">Countly Text Pro</div>
+            <div class="price"><strong>$9.99</strong><span>/ one-time for early access</span></div>
+            <div style="color: rgba(255,255,255,0.78); line-height:1.65; margin-bottom:14px;">
+              Start free today. Add payment later when you are ready to sell it.
+            </div>
+            <button class="btn btn-light" style="width:100%;">Upgrade Button Placeholder</button>
+          </div>
+          <ul class="check-list">
+            <li>Advanced writing stats</li>
+            <li>Flashcards from pasted text</li>
+            <li>Spelling practice mode</li>
+            <li>Vocabulary challenge</li>
+            <li>Local saved decks and notes</li>
+            <li>Daily progress and streak tracking</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 style="font-size: clamp(1.7rem, 2.3vw, 2.7rem);">What your Pro page can include for free</h2>
+            <p>Everything below works with plain HTML, CSS, and JavaScript. User data is saved inside the browser, so you do not need a paid backend yet.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">✍️</div>
+            <h3>Advanced Writing Stats</h3>
+            <p>Word count, character count, sentence count, paragraph count, estimated reading time, speaking time, average word length, and unique vocabulary tracking.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🗂️</div>
+            <h3>Flashcards From Text</h3>
+            <p>Turn pasted writing into instant study cards by pulling out longer words and creating simple front/back prompts automatically.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔤</div>
+            <h3>Spelling + Vocabulary Practice</h3>
+            <p>Practice difficult words from your own text using spelling challenges and multiple-choice meaning games.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💾</div>
+            <h3>Saved Drafts</h3>
+            <p>Save recent writing sessions locally so the browser remembers them even after refresh, without needing login yet.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔥</div>
+            <h3>Progress Streaks</h3>
+            <p>Track how many days the user has come back to write or study. This increases habit value without any server cost.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⬇️</div>
+            <h3>Export Tools</h3>
+            <p>Let users download their writing and flashcard decks as text files or JSON so they feel the value of the Pro product.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workspace">
+      <div class="container workspace">
+        <div class="panel workspace-main">
+          <div class="section-head" style="margin-bottom:14px;">
+            <div>
+              <h2 style="font-size:1.6rem;">Pro Workspace</h2>
+              <p>Paste text below to generate live stats, flashcards, saved drafts, and word games.</p>
+            </div>
+          </div>
+
+          <textarea id="mainText" placeholder="Paste or type your text here..."></textarea>
+
+          <div class="tool-row">
+            <button class="btn btn-dark" id="saveDraftBtn">Save Draft</button>
+            <button class="btn btn-light" id="clearTextBtn">Clear</button>
+            <button class="btn btn-ghost" id="downloadTxtBtn">Download .txt</button>
+            <button class="btn btn-ghost" id="generateFlashcardsBtn">Generate Flashcards</button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box"><strong id="wordCount">0</strong><span>Words</span></div>
+            <div class="stat-box"><strong id="charCount">0</strong><span>Characters</span></div>
+            <div class="stat-box"><strong id="sentenceCount">0</strong><span>Sentences</span></div>
+            <div class="stat-box"><strong id="paragraphCount">0</strong><span>Paragraphs</span></div>
+            <div class="stat-box"><strong id="readingTime">0 min</strong><span>Reading time</span></div>
+            <div class="stat-box"><strong id="speakingTime">0 min</strong><span>Speaking time</span></div>
+            <div class="stat-box"><strong id="avgWordLen">0</strong><span>Avg word length</span></div>
+            <div class="stat-box"><strong id="uniqueWords">0</strong><span>Unique words</span></div>
+          </div>
+        </div>
+
+        <aside class="panel workspace-side">
+          <h3 style="font-size:1.15rem; margin-bottom:14px;">Saved Drafts + Streak</h3>
+          <p class="subtle">Everything here is saved with localStorage, so it works free on GitHub Pages.</p>
+
+          <div class="stat-box" style="margin:14px 0 16px;">
+            <strong id="streakCount">1</strong>
+            <span>Day streak</span>
+          </div>
+
+          <div class="field">
+            <label for="draftTitle">Draft title</label>
+            <input id="draftTitle" placeholder="Example: Essay practice" />
+          </div>
+
+          <div style="margin-top:16px;">
+            <div style="font-weight:800; margin-bottom:10px;">Recent drafts</div>
+            <div id="draftList" class="deck-list"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="flashcards">
+      <div class="container panel" style="padding:22px;">
+        <div class="section-head">
+          <div>
+            <h2 style="font-size:1.6rem;">Flashcards from your writing</h2>
+            <p>Click the card to flip it. This demo creates vocabulary cards from longer words in the text area.</p>
+          </div>
+          <div class="tool-row" style="margin:0;">
+            <button class="btn btn-dark" id="prevCardBtn">Previous</button>
+            <button class="btn btn-light" id="nextCardBtn">Next</button>
+            <button class="btn btn-ghost" id="downloadDeckBtn">Export Deck</button>
+          </div>
+        </div>
+
+        <div class="flashcards-wrap">
+          <div>
+            <div class="flashcard" id="flashcard">
+              <small id="flashcardSide">Front</small>
+              <div class="big" id="flashcardText">Generate flashcards from your text.</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight:800; margin-bottom:10px;">Current deck</div>
+            <div class="deck-list" id="deckList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <div class="container game-box">
+        <div class="panel" style="padding:22px;">
+          <h2 style="font-size:1.45rem; margin-bottom:8px;">Spelling Challenge</h2>
+          <p class="subtle">Type the highlighted vocabulary word correctly. Words come from your current text.</p>
+          <div class="output" id="spellingPrompt">Generate flashcards first to start the spelling challenge.</div>
+          <div class="field" style="margin-top:14px;">
+            <label for="spellingInput">Your answer</label>
+            <input id="spellingInput" placeholder="Type the word here" />
+          </div>
+          <div class="tool-row">
+            <button class="btn btn-dark" id="checkSpellingBtn">Check</button>
+            <button class="btn btn-light" id="newSpellingBtn">New Word</button>
+          </div>
+          <div class="output" id="spellingResult">Your result will appear here.</div>
+        </div>
+
+        <div class="panel" style="padding:22px;">
+          <h2 style="font-size:1.45rem; margin-bottom:8px;">Vocabulary Match</h2>
+          <p class="subtle">Pick the best clue for the shown word. This is a lightweight free mini-game you can keep on a static site.</p>
+          <div class="output" id="quizWord">No active word yet.</div>
+          <div class="pill-row" id="quizOptions"></div>
+          <div class="tool-row">
+            <button class="btn btn-dark" id="newQuizBtn">New Question</button>
+          </div>
+          <div class="output" id="quizResult">Choose an option to see your result.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-col">
+        <div class="panel" style="padding:22px;">
+          <h2 style="font-size:1.4rem; margin-bottom:8px;">How to sell this later</h2>
+          <p class="subtle">
+            Keep this entire page free to host for now. When you are ready to charge, connect a payment tool later and lock premium features behind accounts. Until then, this page works as a live Pro demo.
+          </p>
+          <ul class="check-list" style="margin-top:14px;">
+            <li>Host this file as <strong>pro.html</strong> on GitHub Pages</li>
+            <li>Link to it from your current homepage</li>
+            <li>Use an upgrade button as a placeholder for now</li>
+            <li>Collect interest before building payments</li>
+          </ul>
+        </div>
+
+        <div class="panel" style="padding:22px;">
+          <h2 style="font-size:1.4rem; margin-bottom:8px;">Free features only</h2>
+          <p class="subtle">
+            This page avoids paid backends. No accounts, no cloud sync, and no subscription logic yet. That is exactly why it is a smart first Pro build.
+          </p>
+          <ul class="check-list" style="margin-top:14px;">
+            <li>localStorage for drafts and streaks</li>
+            <li>Instant browser-based calculations</li>
+            <li>Deck export as JSON</li>
+            <li>Text export as TXT</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-box">
+      <div>© 2026 Countly Text. All rights reserved.</div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="#" class="muted-link">Terms</a>
+        <a href="#" class="muted-link">Privacy</a>
+        <a href="mailto:hello@countlytext.com" class="muted-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mainText = document.getElementById('mainText');
+    const draftTitle = document.getElementById('draftTitle');
+    const draftList = document.getElementById('draftList');
+    const deckList = document.getElementById('deckList');
+    const flashcard = document.getElementById('flashcard');
+    const flashcardText = document.getElementById('flashcardText');
+    const flashcardSide = document.getElementById('flashcardSide');
+    const streakCount = document.getElementById('streakCount');
+
+    const statsEls = {
+      wordCount: document.getElementById('wordCount'),
+      charCount: document.getElementById('charCount'),
+      sentenceCount: document.getElementById('sentenceCount'),
+      paragraphCount: document.getElementById('paragraphCount'),
+      readingTime: document.getElementById('readingTime'),
+      speakingTime: document.getElementById('speakingTime'),
+      avgWordLen: document.getElementById('avgWordLen'),
+      uniqueWords: document.getElementById('uniqueWords'),
+    };
+
+    const spellingPrompt = document.getElementById('spellingPrompt');
+    const spellingInput = document.getElementById('spellingInput');
+    const spellingResult = document.getElementById('spellingResult');
+    const quizWord = document.getElementById('quizWord');
+    const quizOptions = document.getElementById('quizOptions');
+    const quizResult = document.getElementById('quizResult');
+
+    let flashcards = [];
+    let currentCardIndex = 0;
+    let isFront = true;
+    let currentSpellingWord = '';
+    let currentQuiz = null;
+
+    const meaningHints = [
+      'a vocabulary word taken from your text',
+      'a more advanced term found in your writing',
+      'a study word you may want to practice',
+      'a longer word automatically selected from your text',
+      'a word worth remembering from your draft'
+    ];
+
+    function getWords(text) {
+      return (text.toLowerCase().match(/[a-zA-Z']+/g) || []).filter(Boolean);
+    }
+
+    function updateStats() {
+      const text = mainText.value;
+      const words = getWords(text);
+      const chars = text.length;
+      const sentences = (text.match(/[.!?]+/g) || []).length;
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length || (text.trim() ? 1 : 0);
+      const unique = new Set(words);
+      const avgLen = words.length ? (words.reduce((a, b) => a + b.length, 0) / words.length).toFixed(1) : 0;
+      const reading = words.length ? Math.max(1, Math.ceil(words.length / 225)) : 0;
+      const speaking = words.length ? Math.max(1, Math.ceil(words.length / 130)) : 0;
+
+      statsEls.wordCount.textContent = words.length;
+      statsEls.charCount.textContent = chars;
+      statsEls.sentenceCount.textContent = sentences;
+      statsEls.paragraphCount.textContent = paragraphs;
+      statsEls.readingTime.textContent = `${reading} min`;
+      statsEls.speakingTime.textContent = `${speaking} min`;
+      statsEls.avgWordLen.textContent = avgLen;
+      statsEls.uniqueWords.textContent = unique.size;
+    }
+
+    function saveToLocal(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function loadFromLocal(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function updateStreak() {
+      const today = new Date().toISOString().slice(0, 10);
+      let streakData = loadFromLocal('countly_pro_streak', { lastVisit: '', streak: 1 });
+
+      if (!streakData.lastVisit) {
+        streakData = { lastVisit: today, streak: 1 };
+      } else if (streakData.lastVisit !== today) {
+        const last = new Date(streakData.lastVisit + 'T00:00:00');
+        const now = new Date(today + 'T00:00:00');
+        const diffDays = Math.round((now - last) / 86400000);
+        if (diffDays === 1) streakData.streak += 1;
+        else if (diffDays > 1) streakData.streak = 1;
+        streakData.lastVisit = today;
+      }
+
+      saveToLocal('countly_pro_streak', streakData);
+      streakCount.textContent = streakData.streak;
+    }
+
+    function renderDrafts() {
+      const drafts = loadFromLocal('countly_pro_drafts', []);
+      draftList.innerHTML = '';
+
+      if (!drafts.length) {
+        draftList.innerHTML = '<div class="subtle">No saved drafts yet.</div>';
+        return;
+      }
+
+      drafts.forEach((draft, index) => {
+        const item = document.createElement('div');
+        item.className = 'deck-item';
+        item.innerHTML = `
+          <div style="font-weight:800; margin-bottom:4px;">${escapeHtml(draft.title || 'Untitled draft')}</div>
+          <div class="subtle">${new Date(draft.savedAt).toLocaleString()}</div>
+        `;
+        item.addEventListener('click', () => {
+          mainText.value = draft.text;
+          draftTitle.value = draft.title;
+          updateStats();
+        });
+        draftList.appendChild(item);
+      });
+    }
+
+    function saveDraft() {
+      const text = mainText.value.trim();
+      if (!text) return;
+
+      const drafts = loadFromLocal('countly_pro_drafts', []);
+      drafts.unshift({
+        title: draftTitle.value.trim() || 'Untitled draft',
+        text,
+        savedAt: new Date().toISOString()
+      });
+      saveToLocal('countly_pro_drafts', drafts.slice(0, 12));
+      renderDrafts();
+    }
+
+    function generateFlashcards() {
+      const words = [...new Set(getWords(mainText.value))]
+        .filter(word => word.length >= 6)
+        .slice(0, 18);
+
+      flashcards = words.map(word => ({
+        front: capitalize(word),
+        back: `Practice word: ${capitalize(word)} — ${meaningHints[Math.floor(Math.random() * meaningHints.length)]}.`
+      }));
+
+      currentCardIndex = 0;
+      isFront = true;
+      renderDeckList();
+      renderCurrentCard();
+      newSpellingWord();
+      newQuizQuestion();
+    }
+
+    function renderDeckList() {
+      deckList.innerHTML = '';
+      if (!flashcards.length) {
+        deckList.innerHTML = '<div class="subtle">No flashcards yet. Generate them from your text.</div>';
+        return;
+      }
+
+      flashcards.forEach((card, index) => {
+        const item = document.createElement('div');
+        item.className = 'deck-item' + (index === currentCardIndex ? ' active' : '');
+        item.innerHTML = `
+          <div style="font-weight:800; margin-bottom:4px;">${escapeHtml(card.front)}</div>
+          <div class="subtle">Tap to open card ${index + 1}</div>
+        `;
+        item.addEventListener('click', () => {
+          currentCardIndex = index;
+          isFront = true;
+          renderCurrentCard();
+          renderDeckList();
+        });
+        deckList.appendChild(item);
+      });
+    }
+
+    function renderCurrentCard() {
+      if (!flashcards.length) {
+        flashcardSide.textContent = 'Front';
+        flashcardText.textContent = 'Generate flashcards from your text.';
+        return;
+      }
+      const card = flashcards[currentCardIndex];
+      flashcardSide.textContent = isFront ? 'Front' : 'Back';
+      flashcardText.textContent = isFront ? card.front : card.back;
+    }
+
+    function nextCard() {
+      if (!flashcards.length) return;
+      currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+      isFront = true;
+      renderCurrentCard();
+      renderDeckList();
+    }
+
+    function prevCard() {
+      if (!flashcards.length) return;
+      currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+      isFront = true;
+      renderCurrentCard();
+      renderDeckList();
+    }
+
+    function newSpellingWord() {
+      if (!flashcards.length) {
+        currentSpellingWord = '';
+        spellingPrompt.textContent = 'Generate flashcards first to start the spelling challenge.';
+        spellingResult.textContent = 'Your result will appear here.';
+        return;
+      }
+      currentSpellingWord = flashcards[Math.floor(Math.random() * flashcards.length)].front;
+      spellingPrompt.textContent = `Spell this word correctly: ${maskWord(currentSpellingWord)}`;
+      spellingInput.value = '';
+      spellingResult.textContent = 'Your result will appear here.';
+    }
+
+    function checkSpelling() {
+      if (!currentSpellingWord) return;
+      const guess = spellingInput.value.trim().toLowerCase();
+      const answer = currentSpellingWord.toLowerCase();
+      spellingResult.textContent = guess === answer
+        ? `Correct — ${currentSpellingWord}`
+        : `Not quite. Correct answer: ${currentSpellingWord}`;
+    }
+
+    function newQuizQuestion() {
+      if (flashcards.length < 3) {
+        currentQuiz = null;
+        quizWord.textContent = 'Generate a larger flashcard deck to start this game.';
+        quizOptions.innerHTML = '';
+        quizResult.textContent = 'Choose an option to see your result.';
+        return;
+      }
+
+      const correctCard = flashcards[Math.floor(Math.random() * flashcards.length)];
+      const choices = [correctCard.back];
+      while (choices.length < 4) {
+        const option = flashcards[Math.floor(Math.random() * flashcards.length)].back;
+        if (!choices.includes(option)) choices.push(option);
+      }
+      shuffle(choices);
+      currentQuiz = { word: correctCard.front, answer: correctCard.back, choices };
+
+      quizWord.textContent = `Word: ${correctCard.front}`;
+      quizOptions.innerHTML = '';
+      quizResult.textContent = 'Choose an option to see your result.';
+
+      choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'pill';
+        btn.textContent = choice;
+        btn.addEventListener('click', () => {
+          const isCorrect = choice === currentQuiz.answer;
+          [...quizOptions.children].forEach(el => {
+            if (el.textContent === currentQuiz.answer) el.classList.add('correct');
+            else if (el === btn && !isCorrect) el.classList.add('wrong');
+            el.disabled = true;
+          });
+          quizResult.textContent = isCorrect ? 'Correct choice.' : 'Wrong choice. The correct clue is highlighted.';
+        });
+        quizOptions.appendChild(btn);
+      });
+    }
+
+    function downloadTxt() {
+      const blob = new Blob([mainText.value], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (draftTitle.value.trim() || 'countly-text-pro') + '.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadDeck() {
+      const blob = new Blob([JSON.stringify(flashcards, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'countly-flashcards.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function maskWord(word) {
+      if (word.length <= 3) return word;
+      return word[0] + '_'.repeat(Math.max(1, word.length - 2)) + word[word.length - 1];
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    mainText.addEventListener('input', updateStats);
+    document.getElementById('saveDraftBtn').addEventListener('click', saveDraft);
+    document.getElementById('clearTextBtn').addEventListener('click', () => {
+      mainText.value = '';
+      updateStats();
+    });
+    document.getElementById('downloadTxtBtn').addEventListener('click', downloadTxt);
+    document.getElementById('generateFlashcardsBtn').addEventListener('click', generateFlashcards);
+    document.getElementById('nextCardBtn').addEventListener('click', nextCard);
+    document.getElementById('prevCardBtn').addEventListener('click', prevCard);
+    document.getElementById('downloadDeckBtn').addEventListener('click', downloadDeck);
+    flashcard.addEventListener('click', () => {
+      if (!flashcards.length) return;
+      isFront = !isFront;
+      renderCurrentCard();
+    });
+    document.getElementById('checkSpellingBtn').addEventListener('click', checkSpelling);
+    document.getElementById('newSpellingBtn').addEventListener('click', newSpellingWord);
+    document.getElementById('newQuizBtn').addEventListener('click', newQuizQuestion);
+
+    updateStats();
+    updateStreak();
+    renderDrafts();
+    renderCurrentCard();
+  </script>
+</body>
+</html>
