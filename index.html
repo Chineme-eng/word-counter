@@ -19,7 +19,7 @@
 <body>
   <header class="site-header">
     <div class="container nav">
-      <div class="brand">Countly</div>
+      <div class="brand">Countly Text</div>
       <nav class="nav-links">
         <a href="#tool">Tool</a>
         <a href="#features">Features</a>
@@ -32,17 +32,17 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Writing tool</p>
-          <h1>Word counting, readability, and writing insight in one clean page.</h1>
+          <h1>Write better. Instantly understand your text.</h1>
           <p class="hero-text">
-            Paste text and instantly see word count, reading level, timing, repeated words,
-            average sentence length, and more.
+            Countly Text helps you measure word count, reading level, timing, sentence length,
+            and repeated words in one clean writing workspace.
           </p>
 
           <div class="hero-pills">
             <span>Live stats</span>
             <span>Reading grade</span>
             <span>Repeated words</span>
-            <span>Mobile friendly</span>
+            <span>Sentence insights</span>
           </div>
         </div>
 
@@ -78,11 +78,40 @@
             </div>
           </div>
 
+          <div class="quick-stats">
+            <div class="quick-stat">
+              <span>Words</span>
+              <strong id="quickWords">0</strong>
+            </div>
+            <div class="quick-stat">
+              <span>Reading Time</span>
+              <strong id="quickReading">0 sec</strong>
+            </div>
+            <div class="quick-stat">
+              <span>Grade</span>
+              <strong id="quickGrade">0</strong>
+            </div>
+          </div>
+
           <textarea
             id="textInput"
             placeholder="Start typing here..."
             aria-label="Text input"
           ></textarea>
+
+          <div id="feedbackLine" class="feedback-line">
+            Your writing insights will appear here.
+          </div>
+
+          <div class="analysis-preview-wrap">
+            <div class="analysis-preview-head">
+              <h3>Live Analysis Preview</h3>
+              <p>Repeated words and long sentences are highlighted below.</p>
+            </div>
+            <div id="analysisPreview" class="analysis-preview">
+              Start typing to see highlighted analysis.
+            </div>
+          </div>
         </section>
 
         <aside class="stats-panel">
@@ -137,6 +166,10 @@
             </div>
           </div>
 
+          <div class="grade-note" id="gradeExplanation">
+            Add text to see a reading-level explanation.
+          </div>
+
           <div class="detail-box">
             <h3>Writing details</h3>
             <div class="detail-row">
@@ -161,7 +194,7 @@
     <section id="features" class="features">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">What it tracks</p>
+          <p class="eyebrow">Why people use it</p>
           <h2>Built for everyday writing.</h2>
         </div>
 
@@ -176,7 +209,7 @@
           </article>
           <article class="feature-card">
             <h3>Spot patterns</h3>
-            <p>Repeated words, sentence length, and other quick writing signals.</p>
+            <p>Repeated words, long sentences, and other quick writing signals.</p>
           </article>
         </div>
       </div>
